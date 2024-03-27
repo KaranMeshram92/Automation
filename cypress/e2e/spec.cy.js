@@ -5,7 +5,7 @@ describe('Demo Blaze Test spec', () => {
     });
 
     it('passes', () => {
-        // Assert the page title
+        
         cy.title().should('eq', 'STORE');
     })
 })
