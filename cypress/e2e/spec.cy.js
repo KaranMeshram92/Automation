@@ -1,7 +1,7 @@
 describe('Demo Blaze Test spec', () => {
 
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'));
+        cy.visit(Cypress.config('baseUrls').ui);
     });
 
     it('passes', () => {

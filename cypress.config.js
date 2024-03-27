@@ -3,7 +3,11 @@ const path = require('path');
 module.exports = {
   e2e: {
     supportFile: false,
-    baseUrl: 'https://www.demoblaze.com/index.html',
+    // Define base URLs for UI and API
+    baseUrls: {
+        ui: 'https://www.demoblaze.com/index.html',
+        api: 'https://sertis-qa.glitch.me',
+      },
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
