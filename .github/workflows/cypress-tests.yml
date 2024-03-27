@@ -1,0 +1,23 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+  pull_request:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2  # Action to checkout the repository
+
+      - name: Install Dependencies
+        run: npm install  # Install project dependencies
+
+      - name: Run Cypress Tests
+        run: npx cypress run  # Run Cypress tests
