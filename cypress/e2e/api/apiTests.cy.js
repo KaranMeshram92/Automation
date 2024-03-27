@@ -1,5 +1,5 @@
 describe('User IDs API Test', () => {
-    it('should return a valid response for user IDs', () => {
+    it('[GET] /user/ids should return a valid response for user IDs', () => {
         // Make a request to the user IDs endpoint
         cy.request('GET', Cypress.config('baseUrls').api + '/user/ids')
             .then((response) => {
@@ -21,7 +21,7 @@ describe('User IDs API Test', () => {
             });
     });
 
-    it('should return a valid response for user IDs and fetch user details', () => {
+    it('[GET] /user/ids should return a valid response for user IDs and fetch user details for all user IDs', () => {
         // Make a request to the user IDs endpoint
         cy.request('GET', Cypress.config('baseUrls').api + '/user/ids')
             .then((response) => {
@@ -72,7 +72,7 @@ describe('User IDs API Test', () => {
             });
     });
 
-    it('should return a valid response for user IDs and fetch user details', () => {
+    it('[GET] /user/ids should return a valid response for user IDs and fetch user details for a random user Id', () => {
         // Make a request to the user IDs endpoint
         cy.request('GET', Cypress.config('baseUrls').api + '/user/ids')
             .then((response) => {
@@ -120,7 +120,25 @@ describe('User IDs API Test', () => {
             });
     });
 
-    it('should return a valid response for user IDs, fetch user details, and sign in', () => {
+    it('[GET] /user/:id should return a 400 response for bad request', () => {
+        // Make a request to the user IDs endpoint
+        cy.request({
+            method: 'GET',
+            url: Cypress.config('baseUrls').api + '/user/xyz',
+            failOnStatusCode: false
+        }).then((response) => {
+            // Assert the response status code is 400
+            expect(response.status).to.equal(400);
+
+            // Assert the response body contains the expected message
+            expect(response.body).to.deep.equal({
+                status_code: '400',
+                message: 'xyz is not a valid id'
+            });
+        });
+    });
+
+    it('[POST] /signin should Sign in if phone_no and otp is correct for particular user', () => {
         // Declare variables to hold phone_no and otp
         let firstName;
         let lastName;
@@ -201,7 +219,7 @@ describe('User IDs API Test', () => {
             });
     });
 
-    it('should return a 404 response for invalid user', () => {
+    it('[POST] /signin should return a 404 response for invalid user', () => {
         // Generate random phone number and OTP
         const phoneNo = Math.floor(Math.random() * 10000000000).toString();
         const otp = Math.floor(Math.random() * 100000).toString();
@@ -233,7 +251,7 @@ describe('User IDs API Test', () => {
     });
 
 
-    it('should return a 404 response is Sign in with valid phone numer but invalid OTP', () => {
+    it('[POST] /signin should return a 404 response if Sign in with valid phone numer but invalid OTP', () => {
         // Declare variables to hold phone_no and otp
         let firstName;
         let lastName;
@@ -302,7 +320,7 @@ describe('User IDs API Test', () => {
             });
     });
 
-    it('should return a 500 response for empty request body', () => {
+    it('[POST] /signin should return a 500 response for empty request body', () => {
         // Make a request to the signin endpoint with an empty request body
         cy.request({
             method: 'POST',
@@ -330,23 +348,7 @@ describe('User IDs API Test', () => {
 
 
 
-    it('should handle bad request', () => {
-        // Make a request to the user IDs endpoint
-        cy.request({
-            method: 'GET',
-            url: Cypress.config('baseUrls').api + '/user/id',
-            failOnStatusCode: false
-        }).then((response) => {
-            // Assert the response status code is 400
-            expect(response.status).to.equal(400);
-
-            // Assert the response body contains the expected message
-            expect(response.body).to.deep.equal({
-                status_code: '400',
-                message: 'id is not a valid id'
-            });
-        });
-    });
+    
 
 
 });
