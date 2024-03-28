@@ -49,7 +49,7 @@ describe('Log In Tests', () => {
         cy.on('window:alert', cy.stub().as('alert'));
     });
 
-    it.only('Verify Log in on Demo Blaze Home with correct username and password', () => {
+    it('Verify Log in on Demo Blaze Home with correct username and password', () => {
 
         const username = 'test';
         const password = 'test';
@@ -67,8 +67,32 @@ describe('Log In Tests', () => {
             expect(alertText).to.be.undefined;
         });
 
-        // Verify that the username is displayed as welcome message
-        cy.get('#nameofuser').should('have.text', `Welcome ${username}`);
+        demoblazeHomeScreen.verifyLoginInSuccess(username);
+
+    });
+
+    it.only('Verify Log out on Demo Blaze Home after Log In with correct username and password', () => {
+
+        const username = 'test';
+        const password = 'test';
+        // Click on the login link to open the login modal
+        demoblazeHomeScreen.clickNavLinkByText('Log in');
+
+        // Verify the login form elements
+        demoblazeHomeScreen.verifyLoginForm();
+
+        // Perform login with correct username and password
+        demoblazeHomeScreen.doLogin(username, password);
+
+        // Verify that no alert is displayed
+        cy.on('window:alert', (alertText) => {
+            expect(alertText).to.be.undefined;
+        });
+
+        demoblazeHomeScreen.verifyLoginInSuccess(username);
+
+        demoblazeHomeScreen.clickLogOutAndVerify();
+
     });
 
 });

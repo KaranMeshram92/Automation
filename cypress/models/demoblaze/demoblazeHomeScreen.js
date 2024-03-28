@@ -18,6 +18,10 @@ export default class DemoblazeHomeScreen {
         this.loginUserName = '#loginusername';
         this.loginPassword = '#loginpassword';
         this.loginModal = '#logInModal';
+        this.nameOfLoginUser = '#nameofuser';
+        this.loginButton = '#login2';
+        this.logoutButton = '#logout2';
+        
 
         this.signUpUserName = '#sign-username';
         this.signUpPassword = '#sign-password';
@@ -215,5 +219,23 @@ export default class DemoblazeHomeScreen {
         cy.get(this.loginModal).find('button') // Get the div with class modal-dialog
             .contains('Log in') // Check if the button contains the text "Send message"
             .click();
+    }
+
+    verifyLoginInSuccess(username) {
+         // Verify that the username is displayed as welcome message
+         cy.get(this.nameOfLoginUser).should('have.text', `Welcome ${username}`);
+
+         // Verify that the logout button is visible and login button is invisible
+         cy.get(this.logoutButton).should('be.visible');
+         cy.get(this.loginButton).should('not.be.visible');
+    }
+
+    clickLogOutAndVerify() {
+        // Click on the logout button
+        cy.get(this.logoutButton).click();
+
+        // Verify that the login button is visible and logout button is invisible
+        cy.get(this.loginButton).should('be.visible');
+        cy.get(this.logoutButton).should('not.be.visible');
     }
 }
