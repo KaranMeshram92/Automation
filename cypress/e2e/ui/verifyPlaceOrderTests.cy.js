@@ -30,4 +30,48 @@ describe('Log In Tests', () => {
         
     });
 
+    it(`Verify palce order should fail if name is not provided`, () => {
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
+        productScreen.verifyProductIsLoaded();
+        productScreen.clickAddToCartButton();
+        demoblazeHomeScreen.clickToOpenCart();
+        cartScreen.verifyCartItemsCount(1);
+        cartScreen.clickPlaceOrder();
+        cartScreen.fillCheckoutFields('John Wick', 'USA', 'New York', '1234567890123456', '01', '2024');
+        cy.get(cartScreen.checkOutName).clear();
+        
+        cy.window().then(win => {
+            cy.stub(win, 'alert').as('alertStub');
+            cartScreen.clickPurchaseButton();
+            cy.get('@alertStub').should('be.calledWith', cartScreen.checkOutNameAndCardMandatoryMessage);
+        });
+
+        // Click OK on the alert dialog box
+        cy.on('window:alert', cy.stub().as('alert'));
+        
+        
+    });
+
+    it(`Verify palce order should fail if credit card is not provided`, () => {
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
+        productScreen.verifyProductIsLoaded();
+        productScreen.clickAddToCartButton();
+        demoblazeHomeScreen.clickToOpenCart();
+        cartScreen.verifyCartItemsCount(1);
+        cartScreen.clickPlaceOrder();
+        cartScreen.fillCheckoutFields('John Wick', 'USA', 'New York', '1234567890123456', '01', '2024');
+        cy.get(cartScreen.checkOutCard).clear();
+        
+        cy.window().then(win => {
+            cy.stub(win, 'alert').as('alertStub');
+            cartScreen.clickPurchaseButton();
+            cy.get('@alertStub').should('be.calledWith', cartScreen.checkOutNameAndCardMandatoryMessage);
+        });
+
+        // Click OK on the alert dialog box
+        cy.on('window:alert', cy.stub().as('alert'));
+        
+        
+    });
+
 });

@@ -11,6 +11,7 @@ export default class CartScreen {
         this.checkOutCard = '#card';
         this.checkOutMonth = '#month';
         this.checkOutYear = '#year';
+        this.checkOutNameAndCardMandatoryMessage = 'Please fill out Name and Creditcard.';
     }
 
     verifyCartIsEmpty() {
@@ -124,6 +125,8 @@ export default class CartScreen {
         cy.get(this.checkOutMonth).should('be.visible').type(monthValue, { force: true });
         cy.get(this.checkOutYear).should('be.visible').type(yearValue, { force: true });
     }
+
+
 
     clickPurchaseButton() {
         cy.contains('button', 'Purchase').click();
