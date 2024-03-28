@@ -23,6 +23,8 @@ export default class DemoblazeHomeScreen {
         this.signUpPassword = '#sign-password';
         this.signUpModal = '#signInModal';
 
+        this.loginErrorMessage = 'Please fill out Username and Password.';
+
         this.categoriesText = ['Phones', 'Laptops', 'Monitors'];
         this.footerTexts = [
             'We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.',
@@ -200,5 +202,18 @@ export default class DemoblazeHomeScreen {
         cy.get(this.signUpModal) // Get the div with class modal-dialog
             .contains('Close') // Check if the button contains the text "Close"
             .should('be.visible'); // Assert that the button is visible
+    }
+
+    doLogin(username = '', password = '') {
+        // If username and password are provided, fill them in
+        if (username !== '') {
+            cy.get(this.loginUserName).type(username);
+        }
+        if (password !== '') {
+            cy.get(this.loginPassword).type(password);
+        }
+        cy.get(this.loginModal).find('button') // Get the div with class modal-dialog
+            .contains('Log in') // Check if the button contains the text "Send message"
+            .click();
     }
 }
