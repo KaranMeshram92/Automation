@@ -374,6 +374,5 @@ export default class DemoblazeHomeScreen {
 
     clickHomeButton() {
         cy.contains('a', 'Home').click();
-        
     }
 }
