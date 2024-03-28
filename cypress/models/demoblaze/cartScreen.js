@@ -3,6 +3,14 @@ export default class CartScreen {
         this.cartTable = 'table.table.table-bordered.table-hover.table-striped';
         this.cartBody = 'tbody#tbody';
         this.cartItemsTable = '#tbodyid';
+        this.placeOrderButton = 'button[data-target="#orderModal"]';
+        this.checkOutTotalAmout = '#totalm';
+        this.checkOutName = '#name';
+        this.checkOutCountry = '#country';
+        this.checkOutCity = '#city';
+        this.checkOutCard = '#card';
+        this.checkOutMonth = '#month';
+        this.checkOutYear = '#year';
     }
 
     verifyCartIsEmpty() {
@@ -93,6 +101,45 @@ export default class CartScreen {
                 // Assert that the total price of items in the cart is equal to the cart total
                 expect(itemsTotal).to.equal(cartTotal);
             });
+        });
+    }
+
+    clickPlaceOrder() {
+        cy.get(this.placeOrderButton).click();
+        cy.get(this.checkOutTotalAmout).should('be.visible');
+        cy.get(this.checkOutName).should('be.visible');
+        cy.get(this.checkOutCountry).should('be.visible');
+        cy.get(this.checkOutCity).should('be.visible');
+        cy.get(this.checkOutCard).should('be.visible');
+        cy.get(this.checkOutMonth).should('be.visible');
+        cy.get(this.checkOutYear).should('be.visible');
+    }
+
+    fillCheckoutFields(nameValue = '', countryValue = '', cityValue = '', cardValue = '', monthValue = '', yearValue = '') {
+        cy.get(this.checkOutTotalAmout).should('be.visible');
+        cy.get(this.checkOutName).should('be.visible').type(nameValue, { force: true });
+        cy.get(this.checkOutCountry).should('be.visible').type(countryValue, { force: true });
+        cy.get(this.checkOutCity).should('be.visible').type(cityValue, { force: true });
+        cy.get(this.checkOutCard).should('be.visible').type(cardValue, { force: true });
+        cy.get(this.checkOutMonth).should('be.visible').type(monthValue, { force: true });
+        cy.get(this.checkOutYear).should('be.visible').type(yearValue, { force: true });
+    }
+
+    clickPurchaseButton() {
+        cy.contains('button', 'Purchase').click();
+    }
+
+    verifyPurchaseIsSuccessful() {
+        cy.get('.sweet-alert > h2').should('have.text', 'Thank you for your purchase!');
+        cy.get('.lead').invoke('text').then(text => {
+            // Split the text by <br> tags
+            const parts = text.split('<br>');
+            // Extract the ID (assuming it's the first part)
+            const idPart = parts[0].trim(); // Trim any leading or trailing whitespace
+            // Extract the ID value (assuming it's after the colon)
+            const idValue = idPart.split(':')[1].trim();
+            // Perform the assertion to check if the ID value is a number
+            expect(parseInt(idValue)).to.be.a('number').and.not.NaN;
         });
     }
 
