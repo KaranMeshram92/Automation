@@ -51,20 +51,12 @@ export default class ProductScreen {
 
         cy.wait('@addToCartItem').its('response.statusCode').should('eq', 200);
 
-        // // Wait for alert to be shown
-        // cy.on('window:alert', (alertText) => {
-        //     expect(alertText).to.eq(this.addToCartSuccessMessage); // Assert alert text
-        //     cy.log('Alert text:', alertText);
-        // });
-
-        // // Close the alert
-        // cy.on('window:alert', () => {
-        //     return true; // Automatically close the alert
-        // });
     }
 
     clickAddToCartAndGoBackHome() {
         this.clickAddToCartButton();
+        cy.intercept('GET', '**/entries').as('homePageLoaded');
         cy.contains('a', 'Home').click();
+        cy.wait('@homePageLoaded').its('response.statusCode').should('eq', 200);
     }
 }
