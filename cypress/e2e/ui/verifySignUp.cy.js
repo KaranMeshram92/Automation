@@ -83,5 +83,6 @@ describe('Log In Tests', () => {
             expect(alertText).to.equal(demoblazeHomeScreen.signupSuccessMessage);
         });
     });
+    
 
 });
