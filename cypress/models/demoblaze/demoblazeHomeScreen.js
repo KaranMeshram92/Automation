@@ -22,7 +22,7 @@ export default class DemoblazeHomeScreen {
         this.nameOfLoginUser = '#nameofuser';
         this.loginButton = '#login2';
         this.logoutButton = '#logout2';
-        
+
 
         this.signUpUserName = '#sign-username';
         this.signUpPassword = '#sign-password';
@@ -34,6 +34,11 @@ export default class DemoblazeHomeScreen {
         this.signupSuccessMessage = 'Sign up successful.';
 
         this.categoriesText = ['Phones', 'Laptops', 'Monitors'];
+        this.categoryMapping = {
+            'Laptops': 'notebook',
+            'Phones': 'phone',
+            'Monitors': 'monitor'
+        };
         this.footerTexts = [
             'We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.',
             'Address: 2390 El Camino Real',
@@ -120,16 +125,6 @@ export default class DemoblazeHomeScreen {
             }
         });
     }
-
-    // Function to generate a random string of a specified length
-    // generateRandomString(length) {
-    //     let result = '';
-    //     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    //     for (let i = 0; i < length; i++) {
-    //         result += characters.charAt(Math.floor(Math.random() * characters.length));
-    //     }
-    //     return result;
-    // }
 
     verifyContactForm() {
         // Verify that the email, contact name, and message input fields are visible
@@ -226,12 +221,12 @@ export default class DemoblazeHomeScreen {
     }
 
     verifyLoginInSuccess(username) {
-         // Verify that the username is displayed as welcome message
-         cy.get(this.nameOfLoginUser).should('have.text', `Welcome ${username}`);
+        // Verify that the username is displayed as welcome message
+        cy.get(this.nameOfLoginUser).should('have.text', `Welcome ${username}`);
 
-         // Verify that the logout button is visible and login button is invisible
-         cy.get(this.logoutButton).should('be.visible');
-         cy.get(this.loginButton).should('not.be.visible');
+        // Verify that the logout button is visible and login button is invisible
+        cy.get(this.logoutButton).should('be.visible');
+        cy.get(this.loginButton).should('not.be.visible');
     }
 
     clickLogOutAndVerify() {
@@ -254,5 +249,37 @@ export default class DemoblazeHomeScreen {
         cy.get(this.signUpModal).find('button') // Get the div with class modal-dialog
             .contains('Sign up') // Check if the button contains the text "Send message"
             .click();
+    }
+
+    clickCategoryByName(categoryName) {
+        // Find the <a> element with id="itemc" containing the category name
+        cy.get(this.homeCategories)
+            .contains(this.homeCategories, categoryName)
+            .click();
+    }
+
+    verifyCategoryCanLoadProducts(category) {
+        // Map the category name to its corresponding API value
+        const apiCategory = this.categoryMapping[category];
+
+        // Intercept the network request to https://api.demoblaze.com/bycat with the expected body
+        cy.intercept('POST', '**/bycat', (req) => {
+            // Check if the request body matches the expected body
+            expect(req.body).to.deep.equal({ cat: apiCategory });
+        }).as('apiRequest');
+
+        this.clickCategoryByName(category);
+
+        // Wait for the intercepted request to complete
+        cy.wait('@apiRequest').then((interception) => {
+            // Assert that the intercepted request was successful
+            expect(interception.response.statusCode).to.equal(200);
+
+            // Check if the response body contains the 'Items' key
+            expect(interception.response.body).to.have.property('Items');
+
+            // Assert that the 'Items' array is not empty
+            expect(interception.response.body.Items).to.have.length.above(0);
+        });
     }
 }
