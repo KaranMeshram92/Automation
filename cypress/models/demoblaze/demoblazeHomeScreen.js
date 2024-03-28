@@ -211,10 +211,10 @@ export default class DemoblazeHomeScreen {
     doLogin(username = '', password = '') {
         // If username and password are provided, fill them in
         if (username !== '') {
-            cy.get(this.loginUserName).type(username);
+            cy.get(this.loginUserName).should('be.visible').type(username, { force: true });
         }
         if (password !== '') {
-            cy.get(this.loginPassword).type(password);
+            cy.get(this.loginPassword).should('be.visible').type(password, { force: true });
         }
         cy.get(this.loginModal).find('button') // Get the div with class modal-dialog
             .contains('Log in') // Check if the button contains the text "Send message"
