@@ -33,6 +33,9 @@ export default class DemoblazeHomeScreen {
         this.signupUserAlreadyExistsMessage = 'This user already exist.';
         this.signupSuccessMessage = 'Sign up successful.';
 
+        this.itemsTable = '#contcont';
+        this.itemsBody = '#tbodyid';
+
         this.categoriesText = ['Phones', 'Laptops', 'Monitors'];
         this.categoryMapping = {
             'Laptops': 'notebook',
@@ -280,6 +283,82 @@ export default class DemoblazeHomeScreen {
 
             // Assert that the 'Items' array is not empty
             expect(interception.response.body.Items).to.have.length.above(0);
+        });
+    }
+
+    clickOnProductByCategory(categoryName, clickItemNumber) {
+        cy.intercept('POST', '**/bycat').as('getProducts');
+    
+        // Verify products for the category
+        this.clickCategoryByName(categoryName);
+    
+        // Wait for the network call to complete
+        cy.wait('@getProducts').then(interception => {
+            // Check if response status is 200
+            expect(interception.response.statusCode).to.equal(200);
+    
+            // Check if response body has a non-empty Items array
+            const responseBody = interception.response.body;
+            expect(responseBody.Items).to.be.an('array').that.is.not.empty;
+    
+            // Get the count of items in the Items array
+            const itemsCount = responseBody.Items.length;
+    
+            // Log the count for visibility
+            cy.log(`Number of items in Items array: ${itemsCount}`);
+    
+            // Check if clickItemNumber is within bounds
+            if (clickItemNumber >= itemsCount) {
+                cy.log('clickItemNumber is out of bounds. Cannot click.');
+                return; // Do nothing and return
+            }
+    
+            // Find the div with id "contcont"
+            cy.get(this.itemsTable).within(() => {
+                // Find the child div with id "tbodyid"
+                cy.get(this.itemsBody).within(() => {
+                    // Find all links inside the tbodyid div
+                    cy.get('a').eq(clickItemNumber - 1).click(); // Click on the specified link
+                });
+            });
+        });
+    }
+
+    clickOnProductByCategoryAndItemName(categoryName, itemName) {
+        cy.intercept('POST', '**/bycat').as('getProducts');
+    
+        // Verify products for the category
+        this.clickCategoryByName(categoryName);
+    
+        // Wait for the network call to complete
+        cy.wait('@getProducts').then(interception => {
+            // Check if response status is 200
+            expect(interception.response.statusCode).to.equal(200);
+    
+            // Check if response body has a non-empty Items array
+            const responseBody = interception.response.body;
+            expect(responseBody.Items).to.be.an('array').that.is.not.empty;
+    
+            // Log the count for visibility
+            const itemsCount = responseBody.Items.length;
+            cy.log(`Number of items in Items array: ${itemsCount}`);
+    
+            // Find the div with id "contcont"
+            cy.get(this.itemsTable).within(() => {
+                // Find the child div with id "tbodyid"
+                cy.get(this.itemsBody).within(() => {
+                    // Find all links inside the tbodyid div
+                    cy.get('a').each(($a, index, $links) => {
+                        const linkText = $a.text();
+                        cy.log(linkText);
+                        if (linkText.toLowerCase().includes(itemName.toLowerCase())) {
+                            cy.log('found');
+                            cy.wrap($a).click(); // Click on the link containing the itemName
+                            return false; // Stop iterating through the links
+                        }
+                    });
+                });
+            });
         });
     }
 }
