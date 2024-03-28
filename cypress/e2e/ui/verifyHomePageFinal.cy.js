@@ -1,14 +1,15 @@
+import DemoblazeHomeScreen from "../../models/demoblaze/demoblazeHomeScreen";
 describe('Demo Blaze Test spec', () => {
-
+    const demoblazeHomeScreen = new DemoblazeHomeScreen();
     beforeEach(() => {
         cy.visit(Cypress.config('baseUrls').ui);
     });
 
     it('passes', () => {
 
-        cy.title().should('eq', 'STORE');
+        demoblazeHomeScreen.verifyHomeTitle();
 
-        cy.get('a#nava').should('be.visible');
+        demoblazeHomeScreen.verifyHomeLogo();
 
         // Define the expected text values for the <li> items
         const expectedTextValues = ['Home', 'Contact', 'About us', 'Cart', 'Log in', 'Sign up'];
@@ -22,6 +23,8 @@ describe('Demo Blaze Test spec', () => {
                 expect(text.trim()).to.contain(expectedTextValues[index]);
             });
         });
+
+        demoblazeHomeScreen.verifyHomeNavLinks(expectedTextValues);
 
         // Assert that the <div class="carousel"> contains exactly 3 <div> items
         cy.get('div.carousel-inner').find('div').should('have.length', 3);
