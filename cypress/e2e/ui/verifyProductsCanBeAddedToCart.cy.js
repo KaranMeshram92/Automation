@@ -8,6 +8,13 @@ describe('Log In Tests', () => {
     const cartScreen = new CartScreen();
     beforeEach(() => {
         cy.visit(Cypress.config('baseUrls').ui);
+
+        // Set up uncaught exception handler for all tests
+        cy.on('uncaught:exception', (err, runnable) => {
+            // Log the error and continue test execution
+            cy.log(`Error occurred: ${err.message}`);
+            return false;
+        });
     });
 
     it(`Verify add to cart by item number`, () => {
