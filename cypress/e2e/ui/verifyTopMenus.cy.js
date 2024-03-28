@@ -4,15 +4,7 @@ import CartScreen from "../../models/demoblaze/cartScreen";
 describe('Navigation Test', () => {
     const demoblazeHomeScreen = new DemoblazeHomeScreen();
     const cartScreen = new CartScreen();
-    // Function to generate a random string of a specified length
-    function generateRandomString(length) {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        return result;
-    }
+
     beforeEach(() => {
         cy.visit(Cypress.config('baseUrls').ui);
     });

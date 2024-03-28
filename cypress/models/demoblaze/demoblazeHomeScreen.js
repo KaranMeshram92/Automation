@@ -1,3 +1,4 @@
+import DataUtils from "../../utils/helper/dataUtils";
 export default class DemoblazeHomeScreen {
     constructor() {
         this.url = 'https://www.demoblaze.com/index.html';
@@ -28,6 +29,9 @@ export default class DemoblazeHomeScreen {
         this.signUpModal = '#signInModal';
 
         this.loginErrorMessage = 'Please fill out Username and Password.';
+        this.signupErrorMessage = 'Please fill out Username and Password.';
+        this.signupUserAlreadyExistsMessage = 'This user already exist.';
+        this.signupSuccessMessage = 'Sign up successful.';
 
         this.categoriesText = ['Phones', 'Laptops', 'Monitors'];
         this.footerTexts = [
@@ -118,14 +122,14 @@ export default class DemoblazeHomeScreen {
     }
 
     // Function to generate a random string of a specified length
-    generateRandomString(length) {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        return result;
-    }
+    // generateRandomString(length) {
+    //     let result = '';
+    //     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //     for (let i = 0; i < length; i++) {
+    //         result += characters.charAt(Math.floor(Math.random() * characters.length));
+    //     }
+    //     return result;
+    // }
 
     verifyContactForm() {
         // Verify that the email, contact name, and message input fields are visible
@@ -148,12 +152,12 @@ export default class DemoblazeHomeScreen {
         // Generate random email, contact name, and message
         const randomEmail = `user${Math.floor(Math.random() * 100000)}@example.com`;
         const randomName = `Contact_${Math.floor(Math.random() * 1000)}`;
-        const randomMessage = this.generateRandomString(100);
+        const randomMessage = DataUtils.generateRandomString(100);
 
         // Enter the generated email, contact name, and message into their respective input fields
-        cy.get(this.contactUsEmail).type(randomEmail);
-        cy.get(this.contactUsName).type(randomName);
-        cy.get(this.contactUsMessage).type(randomMessage);
+        cy.get(this.contactUsEmail).type(randomEmail, { force: true });
+        cy.get(this.contactUsName).type(randomName, { force: true });
+        cy.get(this.contactUsMessage).type(randomMessage, { force: true });
 
         // Click on the "Send message" button and wait for the alert dialog box
         cy.window().then(win => {
@@ -237,5 +241,18 @@ export default class DemoblazeHomeScreen {
         // Verify that the login button is visible and logout button is invisible
         cy.get(this.loginButton).should('be.visible');
         cy.get(this.logoutButton).should('not.be.visible');
+    }
+
+    doSignUp(username = '', password = '') {
+        // If username and password are provided, fill them in
+        if (username !== '') {
+            cy.get(this.signUpUserName).should('be.visible').type(username, { force: true });
+        }
+        if (password !== '') {
+            cy.get(this.signUpPassword).should('be.visible').type(password, { force: true });
+        }
+        cy.get(this.signUpModal).find('button') // Get the div with class modal-dialog
+            .contains('Sign up') // Check if the button contains the text "Send message"
+            .click();
     }
 }
