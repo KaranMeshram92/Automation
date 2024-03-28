@@ -71,7 +71,7 @@ describe('Log In Tests', () => {
 
     });
 
-    it.only('Verify Log out on Demo Blaze Home after Log In with correct username and password', () => {
+    it('Verify Log out on Demo Blaze Home after Log In with correct username and password', () => {
 
         const username = 'test';
         const password = 'test';
