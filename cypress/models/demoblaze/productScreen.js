@@ -6,7 +6,7 @@ export default class ProductScreen {
         this.productDescription = '#more-information';
         this.addToCartButton = 'a:contains("Add to cart")'; // Selector for Add to Cart button
 
-        this.addToCartSuccessMessage = 'Product added!';
+        this.addToCartSuccessMessage = 'Product added';
     }
 
     verifyProductImageIsDisplayed() {
@@ -49,7 +49,7 @@ export default class ProductScreen {
 
         // Wait for alert to be shown
         cy.on('window:alert', (alertText) => {
-            expect(alertText).to.equal(this.addToCartSuccessMessage); // Assert alert text
+            expect(alertText).to.eq(this.addToCartSuccessMessage); // Assert alert text
             cy.log('Alert text:', alertText);
         });
 
@@ -57,5 +57,10 @@ export default class ProductScreen {
         cy.on('window:alert', () => {
             return true; // Automatically close the alert
         });
+    }
+
+    clickAddToCartAndGoBackHome() {
+        cy.get(this.addToCartButton).click();
+        cy.contains('a', 'Home').click();
     }
 }

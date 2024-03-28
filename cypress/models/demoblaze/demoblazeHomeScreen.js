@@ -36,6 +36,8 @@ export default class DemoblazeHomeScreen {
         this.itemsTable = '#contcont';
         this.itemsBody = '#tbodyid';
 
+        this.cartButton = '#cartur';
+
         this.categoriesText = ['Phones', 'Laptops', 'Monitors'];
         this.categoryMapping = {
             'Laptops': 'notebook',
@@ -58,6 +60,14 @@ export default class DemoblazeHomeScreen {
     verifyHomeLogo() {
         cy.get(this.homeLogo).should('be.visible');
     }
+
+    clickToOpenCart() {
+        cy.intercept('POST', 'https://api.demoblaze.com/viewcart').as('viewCartRequest');
+        cy.get(this.cartButton).click();
+        cy.wait('@viewCartRequest').its('response.statusCode').should('eq', 200);
+    }
+
+    
 
     verifyHomeNavLinks(expectedTextValues) {
         // Assert the count of <a> items within <div id="navbarExample" class="navbar-collapse collapse">
@@ -360,5 +370,9 @@ export default class DemoblazeHomeScreen {
                 });
             });
         });
+    }
+
+    clickHomeButton() {
+        cy.contains('a', 'Home').click();
     }
 }
