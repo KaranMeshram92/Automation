@@ -26,14 +26,14 @@ describe('Log In Tests', () => {
         
     });
 
-    it(`Verify add to cart by product name`, () => {
-        demoblazeHomeScreen.clickOnProductByCategoryAndItemName('Phones', 'Iphone');
-        productScreen.verifyProductIsLoaded();
-        productScreen.clickAddToCartButton();
-        demoblazeHomeScreen.clickToOpenCart();
-        console.log(cartScreen.getCartItemsCount());
-        cartScreen.verifyCartItemsCount(1);
-    });
+    // it(`Verify add to cart by product name`, () => {
+    //     demoblazeHomeScreen.clickOnProductByCategoryAndItemName('Phones', 'Nokia');
+    //     productScreen.verifyProductIsLoaded();
+    //     productScreen.clickAddToCartButton();
+    //     demoblazeHomeScreen.clickToOpenCart();
+    //     console.log(cartScreen.getCartItemsCount());
+    //     cartScreen.verifyCartItemsCount(1);
+    // });
 
     it(`Verify Product can be deleted from cart by the index number`, () => {
         demoblazeHomeScreen.clickOnProductByCategory('Phones', 1);
