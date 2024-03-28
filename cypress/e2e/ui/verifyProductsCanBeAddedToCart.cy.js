@@ -29,7 +29,7 @@ describe('Log In Tests', () => {
     });
 
     it(`Verify Product can be deleted from cart by the index number`, () => {
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 1);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartButton();
         
@@ -42,7 +42,22 @@ describe('Log In Tests', () => {
 
 
     it(`Verify Multiple Products can be added to cart`, () => {
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 1);
+        productScreen.verifyProductIsLoaded();
+        productScreen.clickAddToCartAndGoBackHome();
+
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 2);
+        productScreen.verifyProductIsLoaded();
+        productScreen.clickAddToCartAndGoBackHome();
+        
+        demoblazeHomeScreen.clickToOpenCart();
+        
+        cartScreen.verifyCartItemsCount(2);
+        
+    });
+
+    it(`Verify Multiple Products of same type can be added to cart`, () => {
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 1);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartAndGoBackHome();
 
@@ -53,32 +68,15 @@ describe('Log In Tests', () => {
         demoblazeHomeScreen.clickToOpenCart();
         
         cartScreen.verifyCartItemsCount(2);
-        cartScreen.deleteItemFromCart(2);
-        
-    });
-
-    it(`Verify Multiple Products of same type can be added to cart`, () => {
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
-        productScreen.verifyProductIsLoaded();
-        productScreen.clickAddToCartAndGoBackHome();
-
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
-        productScreen.verifyProductIsLoaded();
-        productScreen.clickAddToCartAndGoBackHome();
-        
-        demoblazeHomeScreen.clickToOpenCart();
-        
-        cartScreen.verifyCartItemsCount(2);
-        cartScreen.deleteItemFromCart(2);
         
     });
 
     it(`Verify Multiple Products of different categories can be added to cart`, () => {
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 4);
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 2);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartAndGoBackHome();
 
-        demoblazeHomeScreen.clickOnProductByCategory('Laptops', 3);
+        demoblazeHomeScreen.clickOnProductByCategory('Laptops', 1);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartAndGoBackHome();
 
@@ -89,17 +87,16 @@ describe('Log In Tests', () => {
         demoblazeHomeScreen.clickToOpenCart();
         
         cartScreen.verifyCartItemsCount(3);
-        cy.log(cartScreen.calculateTotalPriceOfItemsInCart());
        cartScreen.verifyItemsTotalIsEqualToCartTotal();
         
     });
 
     it(`Verify Cart can be made empty by deleting all products from cart`, () => {
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
+        demoblazeHomeScreen.clickOnProductByCategory('Phones', 1);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartAndGoBackHome();
 
-        demoblazeHomeScreen.clickOnProductByCategory('Phones', 1);
+        demoblazeHomeScreen.clickOnProductByCategory('Laptops', 1);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartAndGoBackHome();
         

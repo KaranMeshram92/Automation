@@ -62,7 +62,7 @@ export default class DemoblazeHomeScreen {
     }
 
     clickToOpenCart() {
-        cy.intercept('POST', 'https://api.demoblaze.com/viewcart').as('viewCartRequest');
+        cy.intercept('POST', '**/viewcart').as('viewCartRequest');
         cy.get(this.cartButton).click();
         cy.wait('@viewCartRequest').its('response.statusCode').should('eq', 200);
     }

@@ -45,22 +45,26 @@ export default class ProductScreen {
     }
 
     clickAddToCartButton() {
+         // Intercept the API call before deleting the item
+         cy.intercept('POST', '**/addtocart').as('addToCartItem');
         cy.get(this.addToCartButton).click();
 
-        // Wait for alert to be shown
-        cy.on('window:alert', (alertText) => {
-            expect(alertText).to.eq(this.addToCartSuccessMessage); // Assert alert text
-            cy.log('Alert text:', alertText);
-        });
+        cy.wait('@addToCartItem').its('response.statusCode').should('eq', 200);
 
-        // Close the alert
-        cy.on('window:alert', () => {
-            return true; // Automatically close the alert
-        });
+        // // Wait for alert to be shown
+        // cy.on('window:alert', (alertText) => {
+        //     expect(alertText).to.eq(this.addToCartSuccessMessage); // Assert alert text
+        //     cy.log('Alert text:', alertText);
+        // });
+
+        // // Close the alert
+        // cy.on('window:alert', () => {
+        //     return true; // Automatically close the alert
+        // });
     }
 
     clickAddToCartAndGoBackHome() {
-        cy.get(this.addToCartButton).click();
+        this.clickAddToCartButton();
         cy.contains('a', 'Home').click();
     }
 }
