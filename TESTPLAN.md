@@ -1,64 +1,105 @@
-# Testing Plan for demoblaze.com
+# Demo Blaze Website Test Plan
 
-To effectively test the demoblaze.com website, it's essential to cover various aspects such as Functional Tests (Both Manual and Automated Tests) and Non-Functional Tests including Performance, Security, Usability, and Accessibility. Below is a list of tasks along with estimated durations and prioritization based on importance:
+This test plan outlines the testing strategy for evaluating the [demoblaze.com](https://www.demoblaze.com) website. It encompasses both functional and non-functional aspects to ensure the website's reliability, performance, security, usability, and accessibility.
 
-## 1. Functional Testing:
-- **Verify navigation:** Ensure all links, buttons, and menus navigate users correctly. (2 days)
-- **Test search functionality:** Confirm that the search feature returns relevant results. (1 day)
-- **Validate product browsing:** Ensure users can browse products by category and view details correctly. (2 days)
-- **Test cart functionality:** Verify adding/removing items to/from the cart and updating quantities. (2 days)
-- **Checkout process testing:** Ensure users can proceed through the checkout process smoothly. (3 days)
-- **Verify user registration/login:** Test user registration, login, and logout functionalities. (2 days)
+To view the detailed test plan with more information check out `TestPlan\TestPlan.docx` in project **root** directory
 
-## 2. Performance Testing:
-- **Create a Performance test Script for major calls flows and APIs including:** 
-    1. Login and Logout
-    2. New user Sign up
-    3. Load Products per category
-    4. View products page
-    5. Add product to Cart
-    6. Check Out and Purchase request 
-    7. Home Page Load for https://www.demoblaze.com/index.html
-- **Types of Tests to execute:**
-    1. Load Test
-    2. Stress Test
-    3. Spike Testing
-    4. Soak Testing
-- **Performance Test result analysis**
+## Test Categories
 
-## 3. Security Testing:
-- **Input Validation Testing**
-- **Authentication Testing**
-- **Authorization Testing**
-- **Session Management Testing**
-- **Sensitive Data Exposure Testing**
-- **Payment Gateway Security Testing**
-- **Cross-Site Request Forgery (CSRF) Testing**
-- **Security Headers Testing**
-- **Third-Party Integration Testing**
-- **Security misconfiguration**
-- **Denial of service attacks**
+1. **Functional Tests**
+   - Manual Tests
+   - Automated Tests
+2. **Non-Functional Tests**
+   - Performance
+   - Security
+   - Usability
+   - Accessibility
 
-## 4. Usability Testing:
-- **UI/UX consistency:** Ensure a consistent and intuitive user experience across different devices and browsers. (2 days)
-- **Mobile responsiveness:** Test the website's responsiveness on various mobile devices. (2 days)
+## Prioritization
 
-## 5. Accessibility Testing:
-- **Keyboard Navigation Testing**
-- **Screen Reader Compatibility Testing**
-- **Color Contrast Testing**
-- **Semantic HTML Testing**
-- **Alternative Text (Alt Text) Testing**
-- **Form Field Labels and Errors Testing**
-- **Focus Management Testing**
-- **Resizing and Zooming Testing**
-- **Skip Navigation Link Testing**
-- **Accessible Rich Internet Applications (ARIA) Testing**
+1. **Functional Tests (P1)**
+   - Manual Tests (P1.1)
+   - Automated Tests (P1.2)
+2. **Performance Tests (P2)**
+3. **Usability Tests (P3)**
+4. **Security Tests (P4)**
+5. **Accessibility Test (P5)**
 
-## Prioritization:
-1. Functional Testing
-2. Security Testing
-3. Usability Testing
-4. Performance Testing
+## Tasks Breakdown
 
-Keep in mind that these estimates are approximate and can vary depending on the complexity of the website and the testing environment. Additionally, it's essential to iterate on testing tasks continuously and adjust priorities based on feedback and emerging issues.
+### 1. Functional Testing
+
+#### a. Manual Tests
+- **Task:** Create and document manual tests for essential functionalities. **(1 day)**
+   - Verify navigation
+   - Verify Log in and sign out flow for users
+   - Verify new user Sign up flow
+   - Verify Products can be loaded for all categories
+   - Verify user can view products in a new screen
+   - Verify Products can be added to cart
+   - Verify Products can be deleted from cart
+   - Verify user can place an order and complete purchase
+- **Task:** Execute manual tests on the demo blaze release in the QA environment. **(2 days)**
+
+#### b. Automated Tests
+- **Task:** Develop Automated tests for Demo Blaze UI using Cypress framework. **(4 days)**
+   - Verify demo blaze Home Page
+   - Verify Log in Flow
+   - Verify Sign up Flow
+   - Verify loading products in each product category (Phones, Mobiles, Laptops)
+   - Verify user can view a single Product
+   - Verify add to cart functionality
+   - Verify delete products from cart
+   - Verify user can place an order
+
+### 2. Performance Tests
+
+- **Task:** Create Performance test Script for major call flows and APIs. **(2 days)**
+   - Login and Logout
+   - New user Sign up
+   - Load Products per category
+   - View products page
+   - Add product to Cart
+   - Check Out and Purchase request
+   - Home Page Load for [https://www.demoblaze.com/index.html](https://www.demoblaze.com/index.html)
+- **Task:** Execute Performance Tests. *(3 days)*
+   - Load Test
+   - Stress Test
+   - Spike Test
+   - Soak Test
+
+### 3. Security Tests
+
+- **Task:** Document and Execute Security Tests. **(3 days)**
+   - Input Validation Testing
+   - Authentication Testing
+   - Authorization Testing
+   - Session Management Testing
+   - Sensitive Data Exposure Testing
+   - Payment Gateway Security Testing
+   - Cross-Site Request Forgery (CSRF) Testing
+   - Security Headers Testing
+   - Third-Party Integration Testing
+   - Security Misconfiguration
+   - Denial of service attacks
+
+### 4. Usability Tests
+
+- **Task:** Execute usability tests on Demo Blaze website. **(2 days)**
+   - UI/UX consistency
+   - Mobile responsiveness
+
+### 5. Accessibility Tests
+
+- **Task:** Execute accessibility tests on Demo Blaze website. **(2 days)**
+   - Keyboard Navigation Testing
+   - Screen Reader Compatibility Testing
+   - Color Contrast Testing
+   - Semantic HTML Testing
+   - Alternative Text (Alt Text) Testing
+   - Form Field Labels and Errors Testing
+   - Focus Management Testing
+   - Resizing and Zooming Testing
+   - Skip Navigation Link Testing
+
+**Note:** These estimates are approximate and may vary depending on the website's complexity and testing environment. Continuous iteration and adjustment of priorities based on feedback and issues are crucial.
