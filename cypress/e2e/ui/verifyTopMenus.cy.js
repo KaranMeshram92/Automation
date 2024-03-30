@@ -1,7 +1,7 @@
 import DemoblazeHomeScreen from "../../models/demoblaze/demoblazeHomeScreen";
 import CartScreen from "../../models/demoblaze/cartScreen";
 
-describe('Navigation Test', () => {
+describe('Demo Blaze Navigation Tests', () => {
     const demoblazeHomeScreen = new DemoblazeHomeScreen();
     const cartScreen = new CartScreen();
 

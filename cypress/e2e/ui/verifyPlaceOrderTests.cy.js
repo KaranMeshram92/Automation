@@ -2,7 +2,7 @@ import DemoblazeHomeScreen from "../../models/demoblaze/demoblazeHomeScreen";
 import ProductScreen from "../../models/demoblaze/productScreen";
 import CartScreen from "../../models/demoblaze/cartScreen";
 
-describe('Log In Tests', () => {
+describe('Demo Blaze Place Order Tests', () => {
     const demoblazeHomeScreen = new DemoblazeHomeScreen();
     const productScreen = new ProductScreen();
     const cartScreen = new CartScreen();
@@ -24,13 +24,13 @@ describe('Log In Tests', () => {
         demoblazeHomeScreen.clickToOpenCart();
         cartScreen.verifyCartItemsCount(1);
         cartScreen.clickPlaceOrder();
-        cartScreen.fillCheckoutFields('John Doe', 'United States', 'New York', '1234567890123456', '12', '2025');
+        cartScreen.fillCheckoutFields('John Wick', 'United States', 'New York', '1234567890123456', '12', '2025');
         cartScreen.clickPurchaseButton();
         cartScreen.verifyPurchaseIsSuccessful();
         
     });
 
-    it(`Verify palce order should fail if name is not provided`, () => {
+    it(`Verify Palce order should fail if name is not provided`, () => {
         demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartButton();
@@ -38,8 +38,10 @@ describe('Log In Tests', () => {
         cartScreen.verifyCartItemsCount(1);
         cartScreen.clickPlaceOrder();
         cartScreen.fillCheckoutFields('John Wick', 'USA', 'New York', '1234567890123456', '01', '2024');
+        // clear the name field
         cy.get(cartScreen.checkOutName).clear();
         
+        // assert that alert box is shown with correct message
         cy.window().then(win => {
             cy.stub(win, 'alert').as('alertStub');
             cartScreen.clickPurchaseButton();
@@ -52,7 +54,7 @@ describe('Log In Tests', () => {
         
     });
 
-    it(`Verify palce order should fail if credit card is not provided`, () => {
+    it(`Verify Palce order should fail if credit card is not provided`, () => {
         demoblazeHomeScreen.clickOnProductByCategory('Phones', 3);
         productScreen.verifyProductIsLoaded();
         productScreen.clickAddToCartButton();
@@ -60,8 +62,11 @@ describe('Log In Tests', () => {
         cartScreen.verifyCartItemsCount(1);
         cartScreen.clickPlaceOrder();
         cartScreen.fillCheckoutFields('John Wick', 'USA', 'New York', '1234567890123456', '01', '2024');
+        
+        // clear the credit card field
         cy.get(cartScreen.checkOutCard).clear();
         
+        // assert that alert box is shown with correct message
         cy.window().then(win => {
             cy.stub(win, 'alert').as('alertStub');
             cartScreen.clickPurchaseButton();
@@ -70,8 +75,7 @@ describe('Log In Tests', () => {
 
         // Click OK on the alert dialog box
         cy.on('window:alert', cy.stub().as('alert'));
-        
-        
+    
     });
 
 });

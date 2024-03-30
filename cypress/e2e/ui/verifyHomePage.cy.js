@@ -1,5 +1,5 @@
 import DemoblazeHomeScreen from "../../models/demoblaze/demoblazeHomeScreen";
-describe('Demo Blaze Test spec', () => {
+describe('Demo Blaze Home Page Test', () => {
     const demoblazeHomeScreen = new DemoblazeHomeScreen();
     beforeEach(() => {
         cy.visit(Cypress.config('baseUrls').ui);

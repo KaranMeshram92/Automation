@@ -1,6 +1,6 @@
 import DemoblazeHomeScreen from "../../models/demoblaze/demoblazeHomeScreen";
 
-describe('Log In Tests', () => {
+describe('Demo Blaze Log In Tests', () => {
     const demoblazeHomeScreen = new DemoblazeHomeScreen();
     beforeEach(() => {
         cy.visit(Cypress.config('baseUrls').ui);
@@ -105,10 +105,4 @@ describe('Log In Tests', () => {
         // Click OK on the alert dialog box
         cy.on('window:alert', cy.stub().as('alert'));
     });
-
-   
-    
-
-    
-
 });

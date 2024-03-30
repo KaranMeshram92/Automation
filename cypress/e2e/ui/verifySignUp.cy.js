@@ -1,7 +1,7 @@
 import DemoblazeHomeScreen from "../../models/demoblaze/demoblazeHomeScreen";
 import DataUtils from "../../utils/helper/dataUtils";
 
-describe('Log In Tests', () => {
+describe('Demo Blaze Sign up Tests', () => {
     const demoblazeHomeScreen = new DemoblazeHomeScreen();
     beforeEach(() => {
         cy.visit(Cypress.config('baseUrls').ui);
@@ -78,7 +78,7 @@ describe('Log In Tests', () => {
         // Perform sign-up with random username and password
         demoblazeHomeScreen.doSignUp(randomUsername, randomPassword);
     
-        // Verify that an alert is displayed indicating user already exists
+        // Verify that an alert is displayed indicating Sign up success
         cy.on('window:alert', (alertText) => {
             expect(alertText).to.equal(demoblazeHomeScreen.signupSuccessMessage);
         });
