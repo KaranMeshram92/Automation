@@ -90,6 +90,14 @@ All the page objects for pages like **HomeScreen, Product Screen, and Cart scree
 
 4. **Common Utilities**: All the common utilities which can be used across the test framework are placed in `\utils\helper` folder, e.g., `generateRandomString(length)`.
 
+## Manual Tests
+
+All the manual tests for Demo Blaze have been placed in the `ManualTests` folder in an `.xlsx` file named `DemoBlazeMasterTestSuite`.
+
+## Performance Test Automation
+
+I have gone the extra mile to design and implement performance test automation using **JMeter** for the demo blaze website. Details of which can be seen in [PERFORMANCE.md](PERFORMANCE.md) and under the **PerformanceTest folder** which has all instructions.
+
 
 ## Highlights
 
