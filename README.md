@@ -116,3 +116,4 @@ I have gone the extra mile to design and implement performance test automation u
 2. A workflow configuration file named `cypress-tests.yml` in the `.github\workflows` folder is used to trigger Cypress tests.
 3. Cypress tests are automatically initiated whenever there's a **code change pushed to the main branch or a pull request opened against it**, ensuring automated testing and quick feedback on the application's functionality.
 
+
