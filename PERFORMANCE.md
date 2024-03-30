@@ -87,7 +87,7 @@ To Check in more details go to **PerformanceTest** folder and check `Performance
 
 **Soak Test:** Run a performance testing on demo blaze for >24 hours to 48 hours.
 - **Output:**
-  - Determine if the application has any memory leaks or dead logs over a long run.
+  - Determine if the application has any memory leaks or dead locks over a long run.
   - Check the response time for critical APIs remains the same over a longer time.
   - Check there is no sudden crash or application failures.
 

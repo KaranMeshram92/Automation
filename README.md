@@ -107,8 +107,6 @@ I have gone the extra mile to design and implement performance test automation u
 
 3. **Fast Execution**: The automation suite is optimized for speed and can execute in less than 2 minutes and 30 seconds, enabling quick feedback on the application's functionality and stability.
 
-4. **Performance Test Automation**: I have gone the extra mile to design and implement performance test automation using **JMeter** for the demo blaze website. Details of which can be seen in [PERFORMANCE.md](PERFORMANCE.md) and under the **PerformanceTest folder** which has all instructions.
-
 
 ## CI/CD with GitHub Actions
 
