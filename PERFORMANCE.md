@@ -7,6 +7,8 @@ To effectively performance test the DemoBlaze website, we have to consider the f
 3. Load products by each category
 4. End to End Purchase flow
 
+To Check in more details go to **PerformanceTest** folder and check `PerformanceTestStrategy.docx`
+
 ## API Details
 
 1. **Login**
