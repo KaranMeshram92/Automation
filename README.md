@@ -117,3 +117,4 @@ I have gone the extra mile to design and implement performance test automation u
 3. Cypress tests are automatically initiated whenever there's a **code change pushed to the main branch or a pull request opened against it**, ensuring automated testing and quick feedback on the application's functionality.
 
 
+
