@@ -30,14 +30,14 @@ describe('Demo Blaze Add to Cart Tests', () => {
         
     });
 
-    // it(`Verify add to cart by product name`, () => {
-    //     demoblazeHomeScreen.clickOnProductByCategoryAndItemName('Phones', 'Nokia');
-    //     productScreen.verifyProductIsLoaded();
-    //     productScreen.clickAddToCartButton();
-    //     demoblazeHomeScreen.clickToOpenCart();
-    //     console.log(cartScreen.getCartItemsCount());
-    //     cartScreen.verifyCartItemsCount(1);
-    // });
+    it(`Verify add to cart by product name`, () => {
+        demoblazeHomeScreen.clickOnProductByCategoryAndItemName('Phones', 'Nokia');
+        productScreen.verifyProductIsLoaded();
+        productScreen.clickAddToCartButton();
+        demoblazeHomeScreen.clickToOpenCart();
+        console.log(cartScreen.getCartItemsCount());
+        cartScreen.verifyCartItemsCount(1);
+    });
 
     it(`Verify Product can be deleted from cart by the index number`, () => {
         // click on category Phones and add a product to cart

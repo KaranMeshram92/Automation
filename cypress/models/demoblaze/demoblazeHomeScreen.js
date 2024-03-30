@@ -334,43 +334,6 @@ export default class DemoblazeHomeScreen {
         });
     }
 
-    // clickOnProductByCategoryAndItemName(categoryName, itemName) {
-    //     cy.intercept('POST', '**/bycat').as('getProducts');
-    
-    //     // Verify products for the category
-    //     this.clickCategoryByName(categoryName);
-    
-    //     // Wait for the network call to complete
-    //     cy.wait('@getProducts').then(interception => {
-    //         // Check if response status is 200
-    //         expect(interception.response.statusCode).to.equal(200);
-    
-    //         // Check if response body has a non-empty Items array
-    //         const responseBody = interception.response.body;
-    //         expect(responseBody.Items).to.be.an('array').that.is.not.empty;
-    
-    //         // Log the count for visibility
-    //         const itemsCount = responseBody.Items.length;
-    //         cy.log(`Number of items in Items array: ${itemsCount}`);
-    
-    //         // Find the div with id "contcont"
-    //         cy.get(this.itemsTable).within(() => {
-    //             // Find the child div with id "tbodyid"
-    //             cy.get(this.itemsBody).within(() => {
-    //                 // Find all links inside the tbodyid div
-    //                 cy.get('a').each(($a, index, $links) => {
-    //                     const linkText = $a.text();
-    //                     cy.log(linkText);
-    //                     if (linkText.toLowerCase().includes(itemName.toLowerCase())) {
-    //                         cy.log('found');
-    //                         cy.wrap($a).click(); // Click on the link containing the itemName
-    //                         return false; // Stop iterating through the links
-    //                     }
-    //                 });
-    //             });
-    //         });
-    //     });
-    // }
 
     clickOnProductByCategoryAndItemName(categoryName, itemName) {
         cy.intercept('POST', '**/bycat').as('getProducts');
